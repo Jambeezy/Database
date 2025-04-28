@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Response Database
+=======
+# Database
+>>>>>>> 835d306e8b62460c86fa237639c3a0a60256cd3e
 
 Веб-приложение для управления базой данных ответов с использованием Django и Google Cloud.
 
@@ -96,6 +100,7 @@ python manage.py createsuperuser
 3. Запустите сервер разработки:
 ```bash
 python manage.py runserver
+
 ```
 
 4. Откройте браузер и перейдите по адресу: http://127.0.0.1:8000/
