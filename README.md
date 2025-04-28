@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# Response Database
+
 =======
 # Database
->>>>>>> 835d306e8b62460c86fa237639c3a0a60256cd3e
 
 Веб-приложение для управления базой данных ответов с использованием Django и Google Cloud.
 
