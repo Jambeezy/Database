@@ -1,4 +1,4 @@
-# WorkSite
+# Database
 
 Проект для управления рабочими процессами.
 
@@ -6,8 +6,8 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/yourusername/WorkSite.git
-cd WorkSite
+git clone https://github.com/yourusername/Database.git
+cd Database
 ```
 
 2. Создайте виртуальное окружение и активируйте его:
@@ -30,6 +30,7 @@ python manage.py migrate
 5. Запустите сервер разработки:
 ```bash
 python manage.py runserver
+
 ```
 
 ## Структура проекта
