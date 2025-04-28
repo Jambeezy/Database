@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name|default:"Категории" }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Левая колонка с категориями -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Категории</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            {% for category in root_categories %}
+                                <li>
+                                    <a href="{% url 'category_detail' category.slug %}" 
+                                       class="{% if current_category and current_category.slug == category.slug %}active{% endif %}">
+                                        {{ category.name }}
+                                    </a>
+                                    {% if category.children.all %}
+                                        <ul>
+                                            {% for child in category.children.all %}
+                                                <li>
+                                                    <a href="{% url 'category_detail' child.slug %}"
+                                                       class="{% if current_category and current_category.slug == child.slug %}active{% endif %}">
+                                                        {{ child.name }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая колонка с ответами -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            {% if category %}
+                                {{ category.name }}
+                            {% else %}
+                                Все ответы
+                            {% endif %}
+                        </h5>
+                        <!-- Добавляем поле поиска по тегам -->
+                        <form method="get" class="d-flex">
+                            <input type="text" 
+                                   name="tag" 
+                                   class="form-control me-2" 
+                                   placeholder="Поиск по тегам..."
+                                   value="{{ tag_query }}">
+                            <button type="submit" class="btn btn-primary">Поиск</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        {% if responses %}
+                            <div class="list-group">
+                                {% for response in responses %}
+                                    <div class="list-group-item">
+                                        <h6 class="mb-1">{{ response.question }}</h6>
+                                        <p class="mb-1">{{ response.answer }}</p>
+                                        {% if response.tags %}
+                                            <div class="mt-2">
+                                                {% for tag in response.tags.split %}
+                                                    <span class="badge bg-secondary me-1">{{ tag }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        <button class="btn btn-primary btn-sm mt-2 copy-btn" 
+                                                onclick="copyToClipboard('{{ response.answer }}', this)">
+                                            Копировать
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Нет доступных ответов в этой категории.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'Скопировано!';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-success');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-primary');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Ошибка при копировании: ', err);
+            });
+        }
+    </script>
+{% endblock %} 

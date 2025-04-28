@@ -1,0 +1,13 @@
+<li class="category-item">
+    <a href="{% url 'category_detail' category.slug %}" 
+       class="{% if category == current_category %}fw-bold{% endif %}">
+        {{ category.name }}
+    </a>
+    {% if category.children.all %}
+        <ul class="category-tree">
+            {% for child in category.children.all %}
+                {% include 'responses/category_tree.html' with category=child %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li> 
