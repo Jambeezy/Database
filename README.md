@@ -6,7 +6,7 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/yourusername/Database.git
+git clone https://github.com/Jambeezy/Database.git
 cd Database
 ```
 
